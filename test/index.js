@@ -29,13 +29,13 @@ experiment('Config', () => {
                 Config();
             };
 
-            expect(fn).to.throw('Object must be instantiated using "new"');
+            expect(fn).to.throw(Error, 'Object must be instantiated using "new"');
 
             done();
         });
     });
 
-    experiment('load #1', () => {
+    experiment('load async #1', () => {
 
         let load = (provider) => {
 
@@ -51,14 +51,14 @@ experiment('Config', () => {
                     });
                 };
 
-                expect(fn).to.throw(Error);
+                expect(fn).to.throw(Error, provider.message);
 
                 done();
             });
         };
 
-        load({ filename: undefined, });
-        load({ filename: null, });
+        load({ filename: undefined, message: 'path must be a string or Buffer' });
+        load({ filename: null, message: 'path must be a string or Buffer' });
 
         load = (provider) => {
 
@@ -69,16 +69,17 @@ experiment('Config', () => {
                 config.load(provider.filename, (err) => {
 
                     expect(err).to.be.an.instanceOf(Error);
+                    expect(err.message).to.equal(provider.message);
 
                     done();
                 });
             });
         };
 
-        load({ filename: 'fileDoesNotExist.json', });
+        load({ filename: 'nope.json', message: 'ENOENT: no such file or directory, open \'nope.json\'' });
     });
 
-    experiment('load #2', () => {
+    experiment('load async #2', () => {
 
         let stubReadFile;
 
@@ -110,7 +111,7 @@ experiment('Config', () => {
         });
     });
 
-    experiment('load #3', () => {
+    experiment('load async #3', () => {
 
         let stubReadFile;
 
@@ -138,6 +139,155 @@ experiment('Config', () => {
 
                 done();
             });
+        });
+    });
+
+    experiment('load async #4', () => {
+
+        let stubReadFile;
+
+        before((done) => {
+
+            stubReadFile = Sinon.stub(Fs, 'readFile').yields(null, '{}');
+
+            done();
+        });
+
+        after((done) => {
+
+            stubReadFile.restore();
+
+            done();
+        });
+
+        it('does not return error if file is valid', (done) => {
+
+            const config = new Config();
+
+            config.load('someFile.json', (err) => {
+
+                expect(err).to.not.exist();
+
+                done();
+            });
+        });
+    });
+
+    experiment('load sync #1', () => {
+
+        const load = (provider) => {
+
+            it('throws error if invalid file was provided', (done) => {
+
+                const config = new Config();
+
+                const fn = () => {
+
+                    config.loadSync(provider.filename);
+                };
+
+                expect(fn).to.throw(Error, provider.message);
+
+                done();
+            });
+        };
+
+        load({ filename: undefined, message: 'path must be a string or Buffer' });
+        load({ filename: null, message: 'path must be a string or Buffer' });
+        load({ filename: 'nope.json', message: 'ENOENT: no such file or directory, open \'nope.json\'' });
+    });
+
+    experiment('load sync #2', () => {
+
+        let stubReadFileSync;
+
+        before((done) => {
+
+            stubReadFileSync = Sinon.stub(Fs, 'readFileSync').throws(new Error('readFileSync'));
+
+            done();
+        });
+
+        after((done) => {
+
+            stubReadFileSync.restore();
+
+            done();
+        });
+
+        it('throws error if error occurred while reading file', (done) => {
+
+            const config = new Config();
+
+            const fn = () => {
+
+                config.loadSync('someFile.json');
+            };
+
+            expect(fn).to.throw(Error, 'readFileSync');
+
+            done();
+        });
+    });
+
+    experiment('load sync #3', () => {
+
+        let stubReadFileSync;
+
+        before((done) => {
+
+            stubReadFileSync = Sinon.stub(Fs, 'readFileSync').returns('__badString__');
+
+            done();
+        });
+
+        after((done) => {
+
+            stubReadFileSync.restore();
+
+            done();
+        });
+
+        it('throws error if syntax error was found in file', (done) => {
+
+            const config = new Config();
+
+            const fn = () => {
+
+                config.loadSync('someFile.json');
+            };
+
+            expect(fn).to.throw(SyntaxError);
+
+            done();
+        });
+    });
+
+    experiment('load sync #4', () => {
+
+        let stubReadFileSync;
+
+        before((done) => {
+
+            stubReadFileSync = Sinon.stub(Fs, 'readFileSync').returns('{}');
+
+            done();
+        });
+
+        after((done) => {
+
+            stubReadFileSync.restore();
+
+            done();
+        });
+
+        it('does not throw error if file is valid', (done) => {
+
+            const config = new Config();
+
+            config.loadSync('someFile.json');
+
+            done();
         });
     });
 
