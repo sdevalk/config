@@ -1,7 +1,7 @@
 Config
 ==============================
 
-Version: 1.1.0
+Version: 1.1.1
 
 Docker
 ------------
@@ -22,7 +22,7 @@ Tests
 Example
 ------------
 
-```
+```javascript
 const Config = require('config');
 
 const config = new Config();
