@@ -1,13 +1,13 @@
 Config
 ==============================
 
-Version: 1.1.1
+Version: 2.0.0
 
 Docker
 ------------
 
     $ docker-compose build
-    $ docker-compose run --rm app /bin/bash
+    $ docker-compose run --rm node /bin/bash
 
 Installation
 ------------
@@ -19,6 +19,10 @@ Tests
 
     $ npm run test
 
+Coding conventions
+------------
+https://hapijs.com/styleguide
+
 Example
 ------------
 
@@ -27,15 +31,15 @@ const Config = require('config');
 
 const config = new Config();
 
-// Asynchronous
-config.load('someFile.json', (err) => {
-
-    if (err) {
-        // ...
-    }
+// Asynchronous (wrap in async function)
+try {
+    await config.load('someFile.json');
 
     const value = config.get('/key');
-});
+}
+catch (error) {
+    // ...
+}
 
 // Synchronous
 try {
