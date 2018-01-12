@@ -3,25 +3,25 @@ Config
 
 Version: 2.0.0
 
-Docker
+Build image
 ------------
+    docker-compose build
 
-    $ docker-compose build
-    $ docker-compose run --rm node /bin/bash
-
-Installation
+Logon to container
 ------------
+    docker-compose run --rm node /bin/bash
 
-    $ npm install https://github.com/sdevalk/config.git --save
-
-Tests
+Run tests
 ------------
-
-    $ npm run test
+    npm test
 
 Coding conventions
 ------------
 https://hapijs.com/styleguide
+
+Install
+------------
+    npm install https://github.com/sdevalk/config.git --save
 
 Example
 ------------
