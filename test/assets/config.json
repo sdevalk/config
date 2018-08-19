@@ -1,0 +1,21 @@
+{
+    "port": 8888,
+    "host": {
+        "$filter": "env",
+        "development": "localhost",
+        "$default": "none"
+    },
+    "magicNumber": {
+        "$filter": "os",
+        "android": 123,
+        "ios": 456
+    },
+    "./path/to/plugin": {
+        "$filter": "env",
+        "acceptance": [
+            {
+                "select": ["api"]
+            }
+        ]
+    }
+}

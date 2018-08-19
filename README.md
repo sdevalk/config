@@ -1,11 +1,12 @@
 Config
 ==============================
 
-Version: 2.0.0
+Development
+==============================
 
 Build image
 ------------
-    docker-compose build
+    docker-compose build --no-cache
 
 Logon to container
 ------------
@@ -19,36 +20,20 @@ Coding conventions
 ------------
 https://hapijs.com/styleguide
 
-Install
-------------
-    npm install https://github.com/sdevalk/config.git --save
+Usage
+==============================
 
 Example
 ------------
-
 ```javascript
-const Config = require('config');
+const Config = require('..');
 
-const config = new Config();
+(async () => {
 
-// Asynchronous (wrap in async function)
-try {
-    await config.load('someFile.json');
+    const config = new Config();
 
-    const value = config.get('/key');
-}
-catch (error) {
-    // ...
-}
+    await config.load('your-config.json');
 
-// Synchronous
-try {
-    config.loadSync('someFile.json');
-
-    const value = config.get('/key');
-}
-catch (error) {
-    // ...
-}
-
+    console.log(config.get('/yourKey'));
+})();
 ```

@@ -15,11 +15,11 @@
     "test-cov-html": "lab -a code -r html -o coverage.html"
   },
   "dependencies": {
-    "confidence": "3.0.2"
+    "confidence": "3.0.2",
+    "load-json-file": "5.0.0"
   },
   "devDependencies": {
     "code": "5.2.0",
-    "lab": "15.4.5",
-    "sinon": "5.0.10"
+    "lab": "15.5.0"
   }
 }
