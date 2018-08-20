@@ -26,7 +26,7 @@ Usage
 Example
 ------------
 ```javascript
-const Config = require('..');
+const Config = require('config');
 
 (async () => {
 
