@@ -1,4 +1,4 @@
-Config
+Config - JSON configuration loader, leveraging Confidence's document format
 ==============================
 
 Development
