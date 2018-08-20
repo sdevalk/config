@@ -4,8 +4,8 @@ services:
     build: .
     user: "node"
     restart: always
-    environment:
-      - NODE_ENV=${NODE_ENV}
+    env_file:
+      - .env
     volumes:
       - ".:/usr/src/app"
       - "/usr/src/app/node_modules"
