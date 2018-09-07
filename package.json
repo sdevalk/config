@@ -20,6 +20,6 @@
   },
   "devDependencies": {
     "code": "5.2.0",
-    "lab": "15.5.0"
+    "lab": "16.0.0"
   }
 }
