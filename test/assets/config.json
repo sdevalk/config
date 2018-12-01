@@ -17,5 +17,14 @@
                 "select": ["api"]
             }
         ]
+    },
+    "withEnv": {
+        "key1": { "$env": "MY_ENV_KEY1" },
+        "key2": { "no$env": "MY_ENV_KEY2" }
+    },
+    "withParam": {
+        "key3": {
+            "$param": "someKey"
+        }
     }
 }

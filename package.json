@@ -1,6 +1,6 @@
 {
   "name": "config",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "config",
   "engines": {
     "node": ">=8.9.0"
@@ -15,11 +15,11 @@
     "test-cov-html": "lab -a code -r html -o coverage.html"
   },
   "dependencies": {
-    "confidence": "3.0.2",
-    "load-json-file": "5.0.0"
+    "confidence": "4.0.1",
+    "fs-extra": "7.0.1"
   },
   "devDependencies": {
-    "code": "5.2.0",
-    "lab": "16.0.0"
+    "code": "5.2.4",
+    "lab": "18.0.0"
   }
 }
