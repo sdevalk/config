@@ -1,8 +1,8 @@
 'use strict';
 
-const Code = require('code');
+const Code = require('@hapi/code');
 const Config = require('..');
-const Lab = require('lab');
+const Lab = require('@hapi/lab');
 
 const { describe, it, before, after } = exports.lab = Lab.script();
 const expect = Code.expect;
@@ -14,7 +14,7 @@ describe('Config', () => {
         const config = new Config();
 
         const error = await expect(config.load(undefined)).to.reject();
-        expect(error.message).to.contain('path must be a string or Buffer');
+        expect(error.message).to.equal('The "path" argument must be one of type string, Buffer, or URL. Received type undefined');
     });
 
     it('rejects if file is not found', async () => {

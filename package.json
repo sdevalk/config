@@ -1,6 +1,6 @@
 {
   "name": "config",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "config",
   "engines": {
     "node": ">=8.9.0"
@@ -11,15 +11,15 @@
   "repository": "git://github.com/sdevalk/config.git",
   "scripts": {
     "lint": "lab -d -f -L",
-    "test": "lab -L -a code -t 100",
-    "test-cov-html": "lab -a code -r html -o coverage.html"
+    "test": "lab -L -a @hapi/code -t 100",
+    "test-cov-html": "lab -a @hapi/code -r html -o coverage.html"
   },
   "dependencies": {
-    "confidence": "4.0.1",
-    "fs-extra": "7.0.1"
+    "confidence": "4.0.2",
+    "fs-extra": "8.0.1"
   },
   "devDependencies": {
-    "code": "5.2.4",
-    "lab": "18.0.0"
+    "@hapi/code": "5.3.1",
+    "@hapi/lab": "18.1.2"
   }
 }
