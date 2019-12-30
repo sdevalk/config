@@ -64,31 +64,6 @@ describe('loadFromFile', () => {
   });
 });
 
-describe('get', () => {
-  it('returns undefined if no file was loaded', () => {
-    expect(config.get('/thisEntryDoesNotExist')).toBeUndefined();
-  });
-
-  it('returns the expected values', async () => {
-    jest.spyOn(fs.promises, 'readFile').mockResolvedValue(`{
-      "port": 8888,
-      "host": {
-          "$filter": "env",
-          "development": "localhost",
-          "$default": "none"
-      }
-    }`);
-
-    await config.loadFromFile('config.json');
-
-    expect(config.get('/port')).toBe(8888);
-    expect(config.get('/port', { env: 'development' })).toBe(8888);
-    expect(config.get('/host')).toBe('none');
-    expect(config.get('/host', { env: 'development' })).toBe('localhost');
-    expect(config.get('/host', { env: 'staging' })).toBe('none');
-  });
-});
-
 describe('getInstance', () => {
   it('rejects if file could not be loaded', async () => {
     jest.spyOn(fs.promises, 'readFile').mockResolvedValue(''); // Random error
