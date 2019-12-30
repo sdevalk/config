@@ -1,25 +1,46 @@
 {
   "name": "config",
-  "version": "3.0.1",
   "description": "config",
+  "version": "4.0.0",
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=12.0.0"
   },
   "private": true,
   "license": "BSD-3-Clause",
-  "main": "lib/index.js",
-  "repository": "git://github.com/sdevalk/config.git",
-  "scripts": {
-    "lint": "lab -d -f -L",
-    "test": "lab -L -a @hapi/code -t 100",
-    "test-cov-html": "lab -a @hapi/code -r html -o coverage.html"
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "files": [
+    "build/src",
+    "!build/src/**/*.map"
+  ],
+  "jest": {
+    "preset": "ts-jest",
+    "testMatch": ["<rootDir>/test/**/*.ts"],
+    "collectCoverage": true,
+    "collectCoverageFrom": ["<rootDir>/src/**/*.ts"]
   },
   "dependencies": {
     "confidence": "4.0.2",
-    "fs-extra": "8.0.1"
+    "strip-json-comments": "3.0.1"
   },
   "devDependencies": {
-    "@hapi/code": "5.3.1",
-    "@hapi/lab": "18.1.2"
+    "@types/confidence": "1.4.30",
+    "@types/jest": "24.0.18",
+    "@types/node": "12.7.4",
+    "gts": "1.1.0",
+    "jest": "24.9.0",
+    "ts-jest": "24.1.0",
+    "typescript": "3.6.2"
+  },
+  "scripts": {
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "fix": "gts fix",
+    "posttest": "npm run check",
+    "prepare": "npm run compile",
+    "test": "jest",
+    "test:watch": "npm test -- --watchAll",
+    "watch": "tsc --watch"
   }
 }

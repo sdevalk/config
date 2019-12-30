@@ -1,11 +1,12 @@
 version: "3"
 services:
   node:
+    image: config:latest
+    user: node
     build: .
-    user: "node"
     restart: always
     env_file:
       - .env
     volumes:
-      - ".:/usr/src/app"
-      - "/usr/src/app/node_modules"
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
